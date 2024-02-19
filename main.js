@@ -36,4 +36,4 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-console.log(playRound(prompt("Choose your move:"), getComputerChoice()));
+document.getElementById("output").innerHTML = playRound(prompt("Choose your move:"), getComputerChoice());
