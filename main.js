@@ -36,4 +36,21 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-document.getElementById("output").innerHTML = playRound(prompt("Choose your move:"), getComputerChoice());
+function playGame(rounds)
+{
+    for (let i = 0; i < rounds; i++)
+    {
+        let text = "";
+        // The point of the 0 ms timeout is to ensure that it doesn't wait until the last prompt to draw all the text.
+        // It doesn't always work for every single line, but it works most of the time.
+        setTimeout( () => {
+            text = playRound(prompt("Choose your move:"), getComputerChoice())
+            console.log(text);
+            document.getElementById("output").innerHTML += text + "<br>";
+        },
+        0);
+        
+    }
+}
+
+playGame(5);
