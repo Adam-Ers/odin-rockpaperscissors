@@ -46,7 +46,7 @@ function playGame(rounds)
         setTimeout( () => {
             text = playRound(prompt("Choose your move:"), getComputerChoice())
             console.log(text);
-            document.getElementById("output").innerHTML += text + "<br>";
+            document.getElementById("output").innerText += text + '\n';
         },
         0);
         
