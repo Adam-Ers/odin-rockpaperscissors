@@ -14,7 +14,7 @@ body {
 
 .title {
     margin: auto;
-    padding: 0px 14%;
+    margin-top: 5%;
 }
 
 .buttons {
@@ -22,7 +22,8 @@ body {
     justify-content: space-between;
     gap: 16px;
     width: 200px;
-    margin: 35vh auto;
+    margin: 20vh auto;
+    margin-bottom: 20vh;
     align-items: center;
     text-align: center;
     justify-content: center;

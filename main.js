@@ -1,37 +1,73 @@
 const rpsChoices = ["Rock", "Paper", "Scissors"];
-const playerChoices = ["r", "p", "s"];
+
+let playerScore = 0;
+let cpuScore = 0;
+let round = 0;
+const maxScore = 5;
+let gameOver = false;
+
+const buttonsContainer = document.querySelector('.buttons');
+let buttons = buttonsContainer.childNodes;
+const score = document.querySelector('.score');
+const resultText = document.querySelector('.resultText');
+const endText = document.querySelector('.endText');
 
 function getComputerChoice() {
-    return rpsChoices[Math.floor(Math.random() * (rpsChoices.length))];
+    return Math.floor(Math.random() * (rpsChoices.length));
 }
 
 function playRound(playerSelection, computerSelection) {
-    let choice = playerSelection
-    if (choice == undefined) {choice = "undefined";}
-    let computerChoice = computerSelection
-    let choiceLetter = choice.toLowerCase();
-    choiceLetter = choiceLetter.charAt(0);
-    if(playerChoices.find(element => element == choiceLetter) == undefined)
+    let choiceNumber = playerSelection;
+    let computerChoiceNumber = computerSelection;
+    if (choiceNumber == 2 && computerChoiceNumber == 0) { computerChoiceNumber = 3;} // If we got scissors and they got rock, make them higher in number.
+    if (choiceNumber == 0 && computerChoiceNumber == 2) { choiceNumber = 3; } // Vice versa for the opposite situation.
+    if (choiceNumber > computerChoiceNumber)
     {
-        return "Invalid choice!"
+        return 'win';
+    }
+    else if (choiceNumber < computerChoiceNumber)
+    {
+        return 'lose';
     }
     else
     {
-        let choiceNumber = playerChoices.findIndex(element => element == choiceLetter);
-        let computerChoiceNumber = rpsChoices.findIndex(element => element == computerChoice)
-        if (choiceNumber == 2 && computerChoiceNumber == 0) { computerChoiceNumber = 3;} // If we got scissors and they got rock, make them higher in number.
-        if (choiceNumber == 0 && computerChoiceNumber == 2) { choiceNumber = 3; } // Vice versa for the opposite situation.
-        if (choiceNumber > computerChoiceNumber)
-        {
-            return `You win! ${choice} beats ${computerChoice}.`;
-        }
-        else if (choiceNumber < computerChoiceNumber)
-        {
-            return `You lose. ${computerChoice} beats ${choice}.`;
-        }
-        else
-        {
-            return `Tie. Both of you picked ${choice}.`;
-        }
+        return 'tie';
     }
 }
+
+function updateScore() {
+    score.innerHTML = `Score: ${playerScore}<br>CPU Score: ${cpuScore}`;
+    if ((playerScore >= 5 || cpuScore >= 5) && !gameOver)
+    {
+        gameOver = true;
+        if (playerScore > cpuScore) { endText.textContent = "You win! You can still keep playing, though."}
+        else { endText.textContent = "You lose... You can still keep playing, though." }
+    }
+}
+
+function onClick(playerChoice) {
+    // alert(`This works! The id is ${id} which is equivalent to ${rpsChoices[id]}`);
+    let computerChoice = getComputerChoice()
+    let result = playRound(playerChoice, computerChoice)
+    let playerChoiceText = rpsChoices[playerChoice];
+    let computerChoiceText = rpsChoices[computerChoice];
+    switch (result)
+    {
+        case 'win':
+            resultText.textContent = `You win the round! ${playerChoiceText} beats ${computerChoiceText}!`;
+            playerScore++;
+            break;
+        case 'lose':
+            resultText.textContent = `You lose the round. ${playerChoiceText} is beaten by ${computerChoiceText}...`;
+            cpuScore++;
+            break;
+        case 'tie':
+            resultText.textContent = `Tie. Both of you picked ${playerChoiceText}.`;
+            break;
+    }
+    updateScore();
+}
+
+buttons.forEach( button => {
+    button.addEventListener('click', event => { onClick(parseInt(event.target.id)); });
+})
