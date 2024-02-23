@@ -35,11 +35,15 @@ body {
     border-radius: 8px;
     padding: 16px;
     font-size: 64px;
+    width: 128px;
+    height: 128px;
 }
 
 @media (pointer:none), (pointer:coarse) {
     .rpsButton {
         font-size: 48px;
         padding: 12px;
+        width: 96px;
+        height: 96px;
     }
 }
