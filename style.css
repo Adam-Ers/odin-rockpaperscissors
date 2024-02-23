@@ -7,11 +7,12 @@
 body {
     background-color: darkslategray;
     font-family: Roboto, sans-serif;
+    color: aliceblue;
+    text-align: center;
+    flex-direction: column;
 }
 
 .title {
-    color: aliceblue;
-    text-align: center;
     margin: auto;
     padding: 0px 14%;
 }
@@ -21,7 +22,7 @@ body {
     justify-content: space-between;
     gap: 16px;
     width: 200px;
-    margin: 35vhS auto;
+    margin: 35vh auto;
     align-items: center;
     text-align: center;
     justify-content: center;
